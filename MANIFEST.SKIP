@@ -50,8 +50,9 @@
 # Avoid pod2html files
 \bpod2htm
 
-# Avoid TODO file
+# Avoid TODO & other files
 \bTODO
+\bgitdist\.
 
 # Avoid t/DefaultPort.pm
 t/DefaultPort.pm

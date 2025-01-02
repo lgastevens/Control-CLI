@@ -13,14 +13,15 @@ my $SeriaPort		= '';		# To manually set the a Serial port to test with; e.g 'COM
 my $TestMultiple	= 1;		# Set to 0 if you only want to test against one device
 my $ConnectionType	;
 my $Blocking		;		# blocking mode
+my $Binmode		= 0;		# binmode = 0 (default) does newline translation; binmode = 1 does not
 my $Timeout		= 10;		# seconds
 my $ConnectionTimeout	= 15;		# seconds
 my $ErrorMode		= 'return';	# always return, so we check outcome in this test script
 my $ErrMsgFormat	= 'verbose';
-my $InputLog		 = 'control-cli.t.in';
-my $OutputLog		 = 'control-cli.t.out';
-my $DumpLog		 = 'control-cli.t.dump';
-my $TelOptLog		 = 'control-cli.t.telopt';
+my $InputLog		;# = 'control-cli.t.in';
+my $OutputLog		;# = 'control-cli.t.out';
+my $DumpLog		;# = 'control-cli.t.dump';
+my $TelOptLog		;# = 'control-cli.t.telopt';
 my $Host		;
 my $TcpPort		;
 my $Username		;
@@ -39,7 +40,7 @@ my $PromptCredentials	= 1;		# Test the module prompting for username/password
 my $PollInterval	= 0.1;		# If testing non-blocking mode, we print a dot to screen every $PollInterval secs
 my $TermType		= 'vt100';	# Negotiate vt100; not because we need to, but because we want to test that this works
 my $WinSize		= [132, 24],	# Negotiate window size; not because we need to, but because we want to test that this works
-my $Debug		= 3; # 3 activates both levels
+my $Debug		= 0; # 3 activates both levels
 ############################################################
 
 # If no $SeriaPort set above, see if one manually specified when running Build.pl or Makefile.pl
@@ -267,6 +268,7 @@ do {{ # Test loop, we keep testing until user satisfied
 		  	Timeout 		=> $Timeout,		# optional; default timeout = 10 secs
 		  	Connection_timeout	=> $ConnectionTimeout,	# optional; default is not set
 			Errmode 		=> $ErrorMode,		# optional; default = 'croak'
+			Binmode			=> $Binmode,		# optional; defalut = 0
 			Errmsg_format		=> $ErrMsgFormat,
 			Input_log		=> $InputLog,
 			Output_log		=> $OutputLog,
